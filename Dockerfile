@@ -1,5 +1,7 @@
 FROM nvidia/opengl:1.2-glvnd-devel-ubuntu20.04
 
+# The dockerfile was borrowed from issue: https://github.com/robot-colosseum/rvt_colosseum/issues/5
+
 RUN :\
     && apt-get update -q \
     && export DEBIAN_FRONTEND=nointeractive \
@@ -129,19 +131,4 @@ USER randuser
 # Fix: qt.qpa.plugin: Could not find the Qt platform plugin "xcb" in "/home/randuser/.local/lib/python3.8/site-packages/cv2/qt/plugins"
 RUN pip3 install --user opencv-python==4.2.0.34
 
-# Running eval patch
-# COPY rvt_colosseum/rvt/eval.py ${HOME}/rvt_colosseum/rvt/eval.py
-# COPY rvt_colosseum/rvt/run_eval_variations.sh ${HOME}/rvt_colosseum/rvt/run_eval_variations.sh
-# MKDI
 RUN cd ${HOME} && mkdir data
-# COPY eval_patches.txt ${HOME}/rvt_colosseum
-# COPY run_eval_patches.txt ${HOME}/rvt_colosseum
-# RUN cd ${HOME}/rvt_colosseum && patch -p1 < eval_patches.txt
-# RUN cd ${HOME}/rvt_colosseum && git apply eval_patches.txt 
-# RUN cd ${HOME}/rvt_colosseum && git apply --check run_eval_patches.txt
-
-# Extra tricks:
-# COPY parallel_data_gen.sh ${HOME}/robot-colosseum/parallel_data_gen.sh
-# COPY save.txt ${HOME}
-# COPY enable_depth_meters.sh ${HOME}
-# COPY apply_rl_bench_patch.sh ${HOME}
