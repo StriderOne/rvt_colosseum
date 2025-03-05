@@ -88,7 +88,8 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=all
 
 # Install RVT
-COPY rvt_colosseum/ ${HOME}/rvt_colosseum/
+COPY rvt_colosseum/rvt ${HOME}/rvt_colosseum/rvt
+COPY rvt_colosseum/setup.py ${HOME}/rvt_colosseum/setup.py   
 
 RUN cd ${HOME}/rvt_colosseum && \
 pip install --user -e .
