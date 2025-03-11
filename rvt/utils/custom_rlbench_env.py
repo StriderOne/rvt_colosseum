@@ -438,7 +438,7 @@ class CustomMultiTaskRLBenchEnv2(CustomMultiTaskRLBenchEnv):
         )[0]
 
 
-        self._task.set_variation(0)
+        self._task.set_variation(d.variation_number)
         desc, obs = self._task.reset_to_demo(d)
         self._lang_goal = desc[0]
 
