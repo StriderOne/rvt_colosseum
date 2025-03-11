@@ -169,3 +169,4 @@ RUN :\
 RUN cd ${HOME} && mkdir data
 COPY patches/collect_dataset.sh ${HOME}/robot-colosseum/collect_dataset.sh
 COPY patches/rlbench_env.py ${HOME}/rvt_colosseum/rvt/libs/YARR/yarr/envs/rlbench_env.py
+COPY patches/eval.py ${HOME}/rvt_colosseum/rvt/eval.py
