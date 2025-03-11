@@ -5,5 +5,6 @@ docker run --runtime=nvidia --gpus all -e DISPLAY -it --rm \
     -v $HOME/.Xauthority:/home/randuser/.Xauthority \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v ./rvt:/home/randuser/rvt_colosseum/rvt \
+    -v ../data:/home/randuser/data \
     --net=host rvt_colosseum:nvidia bash
 
