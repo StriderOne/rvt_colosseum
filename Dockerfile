@@ -140,6 +140,8 @@ RUN :\
     && cd ${HOME} \ 
     && . venv/bin/activate \
     && cd ${HOME}/rvt_colosseum \
+    # && pip install -e rvt/libs/PyRep \
+    && pip install -e rvt/libs/RLBench \
     && pip install -e rvt/libs/YARR \
     && pip install -e rvt/libs/peract_colab \
     && pip install yacs \
