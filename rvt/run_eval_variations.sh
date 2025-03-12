@@ -27,6 +27,7 @@ counter_inside=0
 device=0  # Start with highest GPU number (0-7 for 8 GPUs)
 NUM_GPUS=$(nvidia-smi --query-gpu=gpu_name --format=csv,noheader | wc -l)
 echo "$NUM_GPUS"
+
 # Total number of available GPUs
 # Check if dataset directory exists
 # if [ ! -d "$DEMO_PATH" ]; then
@@ -34,39 +35,33 @@ echo "$NUM_GPUS"
 #     exit 1
 # fi
 # Main loop
-task_list=close_box_2
-# for task_list in ; do
-    # if [[ $counter -ge $1 ]] && \
-    #    [[ $counter -le $2 ]] && \
-    #    [[ $counter_inside -le $3 ]] && \
-    #    [[ $task_list == *_0 || $task_list == *_1  ]]  # Modify task pattern as needed
-    # then
-        # GPU device management - cycle through available GPUs
+# task_list=close_box_2
+for task_list in $(ls $DEMO_PATH); do
 
-echo "$device:rvt:$task_list"
+    echo "$device:rvt:$task_list"
 
-# Create log file
-log_file="${eval_dir}/${task_list}_final.txt"
-touch "$log_file" || {
-    echo "Error: Cannot create log file $log_file"
-    continue
-}
+    # Create log file
+    log_file="${eval_dir}/${task_list}_final.txt"
+    touch "$log_file" || {
+        echo "Error: Cannot create log file $log_file"
+        continue
+    }
 
-# Run evaluation with specific GPU
-CUDA_VISIBLE_DEVICES=$device python3 eval.py \
-    --model-folder "/home/randuser/rvt_colosseum/runs" \
-    --eval-datafolder "$DEMO_PATH" \
-    --tasks "$task_list" \
-    --eval-episodes "$eval_episodes" \
-    --log-name "$eval_dir" \
-    --device 0 \
-    --headless \
-    --model-name "model_14.pth" \
-    --save-video &
+    # Run evaluation with specific GPU
+    CUDA_VISIBLE_DEVICES=$device python3 eval.py \
+        --model-folder "/home/randuser/rvt_colosseum/runs" \
+        --eval-datafolder "$DEMO_PATH" \
+        --tasks "$task_list" \
+        --eval-episodes "$eval_episodes" \
+        --log-name "$eval_dir" \
+        --device 0 \
+        --headless \
+        --model-name "model_14.pth" \
+        --save-video &
 # counter_inside=$((counter_inside + 1))
     # fi
     # counter=$((counter + 1))
-# done
+done
 # Wait for all background processes to complete
 wait
 echo "Evaluation completed for $counter_inside tasks"
