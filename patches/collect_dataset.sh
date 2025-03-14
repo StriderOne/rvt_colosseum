@@ -5,7 +5,7 @@ if [ $# -eq 0 ]
     echo "Collecting demos from all tasks"
 
     tasks=(
-           "close_box"
+           "reach_and_drag"
            )
 else
     echo "Collectins demos from task $1"
