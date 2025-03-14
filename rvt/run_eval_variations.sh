@@ -28,14 +28,13 @@ device=0  # Start with highest GPU number (0-7 for 8 GPUs)
 NUM_GPUS=$(nvidia-smi --query-gpu=gpu_name --format=csv,noheader | wc -l)
 echo "$NUM_GPUS"
 
-# Total number of available GPUs
 # Check if dataset directory exists
-# if [ ! -d "$DEMO_PATH" ]; then
-#     echo "Error: Dataset directory $DEMO_PATH does not exist"
-#     exit 1
+if [ ! -d "$DEMO_PATH" ]; then
+    echo "Error: Dataset directory $DEMO_PATH does not exist"
+    exit 1
 # fi
 # Main loop
-# task_list=close_box_2
+
 for task_list in $(ls $DEMO_PATH); do
 
     echo "$device:rvt:$task_list"
@@ -57,13 +56,9 @@ for task_list in $(ls $DEMO_PATH); do
         --device 0 \
         --headless \
         --model-name "model_14.pth" \
-        --save-video &
-# counter_inside=$((counter_inside + 1))
-    # fi
-    # counter=$((counter + 1))
+        --save-video
 done
-# Wait for all background processes to complete
-wait
+
 echo "Evaluation completed for $counter_inside tasks"
 
 
